@@ -15,7 +15,7 @@ const game = {
       return guess
   },
   play: function() {
-    [this.smallestNum, this.biggestNum]=prompt("What would you like the smallest and biggest to be\nDelimit them by a comma").split(", ")
+    [this.smallestNum, this.biggestNum]=prompt("What would you like the smallest and biggest to be\nDelimit them by a comma").split(", ").map(num=>parseInt(num))
     this.secretNum = Math.floor(Math.random() * 
       (this.biggestNum - this.smallestNum + 1)) + this.smallestNum;
     // this.secretNum = 42
@@ -33,7 +33,7 @@ const game = {
       alert(`Congrats! You guessed the number in ${this.prevGuesses.length}!`)
     }else{
       presentGuess>this.secretNum?this.biggestNum=presentGuess:this.smallestNum=presentGuess
-      alert(`Your guess ${this.secretNum} is too ${presentGuess>this.secretNum?"high":"low"} 
+      alert(`Your guess is too ${presentGuess>this.secretNum?"high":"low"} 
       Previous guesses: ${this.prevGuesses.join(", ")}`)
     }
   }
