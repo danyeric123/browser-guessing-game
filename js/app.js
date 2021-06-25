@@ -5,7 +5,13 @@ const game = {
     prevGuesses: [],
     secretNum: null,
     getGuess: function(){
-        prompt(`Enter a guess between ${this.smallestNum} and ${this.biggestNum}:`)
+        let guess = prompt(`Enter a guess between ${this.smallestNum} and ${this.biggestNum}:`)
+        while(Number.isInteger(parseInt(guess))?
+              parseInt(guess)<this.smallestNum||parseInt(guess)>this.biggestNum
+              :true){
+          console.log(Number.isInteger(parseInt(guess)))
+          guess = prompt(`Enter a guess between ${this.smallestNum} and ${this.biggestNum}:`)
+        }
     },
     play: function() {
       this.secretNum = Math.floor(Math.random() * 
@@ -13,4 +19,4 @@ const game = {
     }
   }
 
-  console.log(game.getGuess())
+  game.getGuess()
