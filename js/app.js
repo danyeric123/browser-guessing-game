@@ -32,7 +32,7 @@ const game = {
     if(presentGuess==this.secretNum){
       alert(`Congrats! You guessed the number in ${this.prevGuesses.length}!`)
     }else{
-      presentGuess>this.secretNum?this.biggestNum=presentGuess:this.smallestNum=presentGuess
+      presentGuess>this.secretNum?this.biggestNum=presentGuess:this.smallestNum=presentGuess      
       alert(`Your guess is too ${presentGuess>this.secretNum?"high":"low"} 
       Previous guesses: ${this.prevGuesses.join(", ")}`)
     }
