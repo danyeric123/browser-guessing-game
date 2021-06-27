@@ -7,8 +7,16 @@ const messageEl = document.getElementById('message'),
     biggestNumInput = document.getElementById("biggest"),
     smallestNumInput = document.getElementById("smallest"),
     rangeSetter = document.getElementById("rangeSetter"),
-    guesser = document.getElementById("guesser")
+    guesser = document.getElementById("guesser"),
+    prevGuessList = document.getElementById("prevGuessList"),
+    prevGuessHeader = document.getElementById("prevGuessHeader"),
+    prevGuessDisplay = document.getElementById("prevGuessDisplay")
 
+let newListElement = (liContent)=>{
+    let li = document.createElement("li");
+    li.appendChild(document.createTextNode(liContent));
+    prevGuessList.appendChild(li);
+}
 guesser.style.display = "none"
 class GuessingGame{
     constructor () {
@@ -22,6 +30,8 @@ class GuessingGame{
         this.smallestNum = null
         this.biggestNum =  null
         this.prevGuesses = []
+        prevGuessDisplay.style.display = "none"
+        prevGuessList.innerHTML = ''
     }
     setRandomNum(){
             [this.smallestNum, this.biggestNum]= [smallestNumInput.value, biggestNumInput.value].map(num=>parseInt(num))
@@ -54,8 +64,10 @@ class GuessingGame{
             messageEl.innerHTML = `Congrats! You guessed the number in ${this.prevGuesses.length}!`
         }else{
             presentGuess>this.secretNum?this.biggestNum=presentGuess:this.smallestNum=presentGuess
-            messageEl.innerHTML = `Your guess is too ${presentGuess>this.secretNum?"high":"low"}
-            Previous guesses: ${this.prevGuesses.join(", ")}`
+            messageEl.innerHTML = `Your guess is too ${presentGuess>this.secretNum?"high":"low"}`
+            prevGuessDisplay.style.display = "block"
+            prevGuessHeader.innerHTML = 'Previous guesses:' 
+            newListElement(this.prevGuesses[this.prevGuesses.length-1])
             guessInput.innerHTML = ''
         }
     }
@@ -63,7 +75,24 @@ class GuessingGame{
 
 let game = new GuessingGame()
 submit.onclick = ()=>game.setRandomNum()
+biggestNumInput.onkeyup = (e)=>{
+    if(e.keyCode ===13) {
+        if(smallestNumInput.value != ''){
+            game.setRandomNum()
+        }
+        
+    }
+}
+smallestNumInput.onkeyup = (e)=>{
+    if(e.keyCode ===13) {
+        if(biggestNumInput.value != ''){
+            game.setRandomNum()
+        }
+        
+    }
+}
 guessBtn.onclick = ()=>game.play()
+guessInput.onkeyup = (e)=>{if(e.keyCode ===13) game.play()}
 resetBtn.onclick = ()=>{
     messageEl.innerHTML = 'Please pick a two numbers to guess between'
     game.reset()

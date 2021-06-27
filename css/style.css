@@ -5,6 +5,14 @@ body {
   color: #d1cdc7;
 }
 
+ul{
+  list-style-type: none;
+}
+
+li{
+  size: 20px;
+}
+
 #formWrapper {
 	display: flex;
   align-items: center;
